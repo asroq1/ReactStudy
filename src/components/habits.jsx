@@ -22,11 +22,11 @@ class Habits extends Component {
      }
     render() {
         return ( 
-            <>
+            <div >
              <HabitAddForm  onAdd={this.handlAdd}/>
               <ul>
                 {this.props.habits.map(habit =>(
-                    //배열을 이용해서 각각 연결시켜줌
+                    //배열을 이용해서 각각 연결시 켜줌
                     // 고유의 키값이 필요해서 키도 연결
                     <Habit 
                     key={habit.id}
@@ -39,7 +39,7 @@ class Habits extends Component {
                 ))}
             </ul> 
             <button className="haibt-reset" onClick={this.props.onReset}>Reset All</button> 
-            </>
+            </div>
           
         );
     }

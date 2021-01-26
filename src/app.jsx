@@ -14,22 +14,28 @@ class App extends Component {
     ], 
 };
 handleIncrement =  habit =>{
-  // spread operator 사용 위의 배열 index를 새롭게 복사한다
-  //껍데기만 달라지고 안의 내용물은 같다고 생각하면 편하다.
-  const habits = [...this.state.habits];
-  const index = habits.indexOf(habit);
-  habits[index].count++;
-  //이렇게 새로운 객체를 만들어서 반환한다.
+
+  const habits = this.state.habits.map(item =>{
+    if(item.id === habit.id){
+      return {...habit, count : habit.count + 1};
+    }else{
+      return item;
+    }
+  });
   this.setState({habits : habits});
 
 };
 handleDecrement =  habit =>{
-  const habits = [...this.state.habits];
-  const index = habits.indexOf(habit);
-  // count변수에 저장해서 마이너스를 방지한다.
-  const count = habits[index].count - 1;
-  habits[index].count = count < 0 ? 0: count;
+  const habits = this.state.habits.map(item =>{
+    if(item.id === habit.id){
+      const count = habit.count - 1;
+      return {...habit, count : count < 0 ?  0 : count};
+    }else{
+      return item;
+    }
+  });
   this.setState({habits : habits});
+
 };
 
 handleDelete = habit =>{
@@ -42,10 +48,13 @@ handleAdd = name =>{
   const habits = [...this.state.habits, {id : Date.now(), name: name, count : 0}]
   this.setState({habits});
 }
+
 handleReset = ()=>{
   const habits = this.state.habits.map(habit =>{
-    habit.count = 0;
-    return habit;
+   if(habit.count !== 0){
+     return {...habit, count : 0};
+   }
+   return habit
   });
   this.setState({habits});
 };

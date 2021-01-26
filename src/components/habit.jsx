@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Habit extends Component {
-   
+class Habit extends PureComponent {
+    
+    // 컴포넌트가 시작되기 이전에 호출함
+    componentDidMount(){
+        console.log(`habit : ${this.props.habit.name} mounted`);
+    }
+
+    // 컴포넌트를 지우기 전에 호출함
+    componentWillUnmount(){
+        console.log(`habit : ${this.props.habit.name} will mount`);
+    }
+
+    
     handleIncrement =  () =>{
        this.props.onIncrement(this.props.habit);
     //   2. props를 이용해서 On함수의 인자값으로 props.habit을 전달해준다.
@@ -15,7 +26,7 @@ class Habit extends Component {
         this.props.onDelete(this.props.habit);
     };
     render() {
-        const {name , count } = this.props.habit;
+        const {name, count} = this.props.habit;
         return(
             <li className="habit">
             <span className="habit-name">{name}</span>
